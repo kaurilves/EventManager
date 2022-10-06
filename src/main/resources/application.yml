@@ -1,0 +1,28 @@
+server:
+  port: 5500
+
+management:
+  endpoints:
+    web.base-path: /system
+    enabled-by-default: false
+
+  endpoint:
+    health.enabled: true
+
+spring:
+  profiles:
+    active: ${ACTIVE_ENVIRONMENT}
+
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false

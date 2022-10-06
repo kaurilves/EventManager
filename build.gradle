@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.4'
+    id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+}
+
+group 'ee.kaur.hometask'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    runtimeOnly 'org.postgresql:postgresql:42.5.0'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.4'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:2.7.4'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.4'
+
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.11'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test:2.7.4')
+
+    // V6ib hilejm 2ra kustutada, kui nendega hilejm ei testi
+    testImplementation 'org.testcontainers:testcontainers:1.17.4'
+    testImplementation 'org.testcontainers:junit-jupiter:1.17.4'
+    testImplementation 'org.testcontainers:postgresql:1.17.4'
+    testImplementation 'org.flywaydb:flyway-core:9.3.0'
+
+    //Mappimine
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
+    annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+    implementation "org.mapstruct:mapstruct:1.5.2.Final"
+    implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+compileJava {
+    // Ignoring Unmapped Properties (no error, no warning), Inject Spring Components into the Mapper
+    options.compilerArgs += ['-Amapstruct.unmappedTargetPolicy=IGNORE', '-Amapstruct.defaultComponentModel=spring']
+}
+
+
+bootRun {
+    jvmArgs=["-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=0.0.0.0:15500"]
+    doFirst {
+        assert file('.env').exists()
+        file('.env').readLines().each() {
+            if (it.empty || it.startsWith('#')) return
+
+            def (String key, String value) = it.tokenize('=')
+            environment key, value
+        }
+    }
+}
