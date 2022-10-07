@@ -27,11 +27,18 @@ public class EventService {
         return eventMapper.eventEntityToEvent(event);
     }
 
+    public Event getEvent (UUID eventId){
+        EventEntity eventEntity = eventRepository.findById(eventId).get();
+       return eventMapper.eventEntityToEvent(eventEntity);
+    }
+
     public List<Event> findAllFutureEvents(){
-        return null;
+        List<EventEntity> eventEntities = eventRepository.findByEventDateGreaterThan(LocalDateTime.now());
+        return eventMapper.eventEntitiesToEvents(eventEntities);
     }
     public List<Event> findAllPastEvents(){
-        return null;
+        List<EventEntity> eventEntities = eventRepository.findByEventDateLessThan(LocalDateTime.now());
+        return eventMapper.eventEntitiesToEvents(eventEntities);
     }
 
     public Event updateEvent(UUID eventId, EventUpdate eventUpdate) {

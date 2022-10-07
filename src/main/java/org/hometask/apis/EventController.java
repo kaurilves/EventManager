@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -24,6 +25,24 @@ public class EventController {
     @PostMapping
     public Event createEvent(@Valid @RequestBody EventCreate eventCreate) {
         return eventService.createEvent(eventCreate);
+    }
+
+    @Operation(summary = "get single event")
+    @GetMapping("/{eventId}")
+    public Event getEvent(@RequestParam UUID eventId) {
+        return eventService.getEvent(eventId);
+    }
+
+    @Operation(summary = "find all future events")
+    @GetMapping("/future")
+    public List<Event> findAllFutureEvents() {
+        return eventService.findAllFutureEvents();
+    }
+
+    @Operation(summary = "find all past events")
+    @GetMapping("/past")
+    public List<Event> findAllPastEvents() {
+        return eventService.findAllPastEvents();
     }
 
     @Operation(summary = "update upcoming event")
