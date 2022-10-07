@@ -27,6 +27,4 @@ public class PaymentTypeService {
         PaymentTypeEntity entity = paymentTypeMapper.paymentTypeCreateToPaymentTypeEntity(paymentTypeCreate);
         return paymentTypeMapper.paymentTypeEntityToPaymentType(paymentTypeRepository.save(entity));
     }
-
-
 }
