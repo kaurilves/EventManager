@@ -22,13 +22,20 @@ public class EventController {
 
     @Operation(summary = "create new event")
     @PostMapping
-    public Event createEvent (@Valid @RequestBody EventCreate eventCreate){
+    public Event createEvent(@Valid @RequestBody EventCreate eventCreate) {
         return eventService.createEvent(eventCreate);
     }
-    @Operation(summary = "update new event")
+
+    @Operation(summary = "update upcoming event")
     @PutMapping("/{eventId}")
-    public Event updateEvent (@RequestParam UUID eventId, @Valid @RequestBody EventUpdate eventUpdate){
+    public Event updateEvent(@RequestParam UUID eventId, @Valid @RequestBody EventUpdate eventUpdate) {
         return eventService.updateEvent(eventId, eventUpdate);
+    }
+
+    @Operation(summary = "delete upcoming event")
+    @DeleteMapping("/{eventId}")
+    public void deleteEvent(@RequestParam UUID eventId) {
+        eventService.deleteEvent(eventId);
     }
 
 }

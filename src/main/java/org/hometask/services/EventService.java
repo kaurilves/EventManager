@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -26,8 +27,13 @@ public class EventService {
         return eventMapper.eventEntityToEvent(event);
     }
 
+    public List<Event> findAllFutureEvents(){
+        return null;
+    }
+    public List<Event> findAllPastEvents(){
+        return null;
+    }
 
-    // TODO: vaja kontrollida, kas future kontroll on õige.
     public Event updateEvent(UUID eventId, EventUpdate eventUpdate) {
         EventEntity eventEntity = eventRepository.findById(eventId).get();
         if (eventUpdate.getEventDate().isAfter(LocalDateTime.now())) {
@@ -41,4 +47,8 @@ public class EventService {
             return null;
         }
     }
+    public void deleteEvent (UUID eventId){
+        eventRepository.delete(eventRepository.findById(eventId).get());
+    }
+
 }
