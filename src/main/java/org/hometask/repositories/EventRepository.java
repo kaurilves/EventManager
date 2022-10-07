@@ -1,6 +1,6 @@
-package org.example.repositories;
+package org.hometask.repositories;
 
-import org.example.entities.EventEntity;
+import org.hometask.entities.EventEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.annotation.Resource;

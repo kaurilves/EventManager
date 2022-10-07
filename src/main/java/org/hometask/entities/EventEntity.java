@@ -1,7 +1,7 @@
-package org.example.entities;
+package org.hometask.entities;
 
 import lombok.*;
-import org.example.config.ServiceConfig;
+import org.hometask.config.ServiceConfig;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

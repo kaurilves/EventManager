@@ -1,17 +1,16 @@
-package org.example.apis;
+package org.hometask.apis;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.example.dtos.Event;
-import org.example.dtos.EventCreate;
-import org.example.services.EventService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.hometask.dtos.Event;
+import org.hometask.dtos.EventCreate;
+import org.hometask.dtos.EventUpdate;
+import org.hometask.services.EventService;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.UUID;
 
 @RestController
 @Tag(name = "Events")
@@ -26,4 +25,10 @@ public class EventController {
     public Event createEvent (@Valid @RequestBody EventCreate eventCreate){
         return eventService.createEvent(eventCreate);
     }
+    @Operation(summary = "update new event")
+    @PutMapping("/{eventId}")
+    public Event updateEvent (@RequestParam UUID eventId, @Valid @RequestBody EventUpdate eventUpdate){
+        return eventService.updateEvent(eventId, eventUpdate);
+    }
+
 }

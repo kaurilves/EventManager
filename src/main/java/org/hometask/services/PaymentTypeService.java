@@ -1,10 +1,10 @@
-package org.example.services;
+package org.hometask.services;
 
-import org.example.dtos.PaymentType;
-import org.example.dtos.PaymentTypeCreate;
-import org.example.entities.PaymentTypeEntity;
-import org.example.mappers.PaymentTypeMapper;
-import org.example.repositories.PaymentTypeRepository;
+import org.hometask.dtos.PaymentType;
+import org.hometask.dtos.PaymentTypeCreate;
+import org.hometask.entities.PaymentTypeEntity;
+import org.hometask.mappers.PaymentTypeMapper;
+import org.hometask.repositories.PaymentTypeRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

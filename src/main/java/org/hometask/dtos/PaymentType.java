@@ -1,4 +1,4 @@
-package org.example.dtos;
+package org.hometask.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

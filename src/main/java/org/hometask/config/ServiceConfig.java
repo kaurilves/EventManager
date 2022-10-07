@@ -1,4 +1,4 @@
-package org.example.config;
+package org.hometask.config;
 
 public class ServiceConfig {
 

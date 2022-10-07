@@ -1,5 +1,6 @@
-package org.example.dtos;
+package org.hometask.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.validation.constraints.Future;
@@ -11,8 +12,7 @@ import java.time.LocalDateTime;
 
 
 @Data
-public class EventCreate implements Serializable {
-
+public class EventUpdate implements Serializable {
     @NotNull
     @NotBlank
     @Size(max = 200)
@@ -23,7 +23,8 @@ public class EventCreate implements Serializable {
     @Size(max = 200)
     private  String address;
 
-    @Future
+    @Future(message = "Date has to be in the future")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd.MM.yyyy HH:mm")
     private  LocalDateTime eventDate;
 
     private  String additionalInfo;

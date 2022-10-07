@@ -1,10 +1,10 @@
-package org.example.apis;
+package org.hometask.apis;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.example.dtos.PaymentType;
-import org.example.dtos.PaymentTypeCreate;
-import org.example.services.PaymentTypeService;
+import org.hometask.dtos.PaymentType;
+import org.hometask.dtos.PaymentTypeCreate;
+import org.hometask.services.PaymentTypeService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
