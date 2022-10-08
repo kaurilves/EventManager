@@ -41,6 +41,8 @@ public class EventService {
         return eventMapper.eventEntitiesToEvents(eventEntities);
     }
 
+
+
     public List<Event> findAllPastEvents() {
         List<EventEntity> eventEntities = eventRepository.findByEventDateLessThan(LocalDateTime.now());
         return eventMapper.eventEntitiesToEvents(eventEntities);
@@ -58,9 +60,10 @@ public class EventService {
         eventRepository.save(eventEntity);
         return eventMapper.eventEntityToEvent(eventEntity);
     }
-    @Transactional
-    public void deleteEvent(UUID eventId) {
-        participantService.deleteAllParticipants(eventId);
+    public void deleteEvent(UUID eventId) throws Exception {
+        if (eventRepository.findById(eventId).orElseThrow().getEventDate().isBefore(LocalDateTime.now())) {
+            throw new Exception("Can´t delete past events");
+        }
         eventRepository.delete(eventRepository.findById(eventId).get());
     }
 

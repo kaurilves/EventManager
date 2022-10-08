@@ -1,5 +1,6 @@
 package org.hometask.services;
 
+import org.hometask.dtos.event.Event;
 import org.hometask.dtos.participants.Participant;
 
 import org.hometask.dtos.participants.ParticipantCreate;
@@ -38,9 +39,8 @@ public class ParticipantService {
     private PaymentTypeRepository paymentTypeRepository;
 
 
-    public Participant addParticipant(ParticipantCreate participantCreate) throws Exception {
-        // Kui ürituse kuupäev on minevikus, siis viska exeption
-        if (eventService.getEvent(participantCreate.getEventId()).getEventDate().isBefore(LocalDateTime.now())){
+    public Participant addParticipant(Event event, ParticipantCreate participantCreate) throws Exception {
+        if (event.getEventDate().isBefore(LocalDateTime.now())){
             throw new Exception("Can´t add participants to past event");
         } else {
             ParticipantEntity participantEntity = participantMapper

@@ -6,6 +6,7 @@ import org.hometask.dtos.event.Event;
 import org.hometask.dtos.event.EventCreate;
 import org.hometask.dtos.event.EventUpdate;
 import org.hometask.services.EventService;
+import org.hometask.services.ParticipantService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,6 +21,8 @@ public class EventController {
 
     @Resource
     private EventService eventService;
+    @Resource
+    private ParticipantService participantService;
 
     @Operation(summary = "create new event")
     @PostMapping
@@ -54,6 +57,7 @@ public class EventController {
     @Operation(summary = "delete upcoming event")
     @DeleteMapping("/{eventId}")
     public void deleteEvent(@RequestParam UUID eventId) {
+        participantService.deleteAllParticipants(eventId);
         eventService.deleteEvent(eventId);
     }
 

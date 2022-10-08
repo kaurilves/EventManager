@@ -2,6 +2,7 @@ package org.hometask.apis;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.hometask.dtos.event.Event;
 import org.hometask.dtos.participants.Participant;
 import org.hometask.dtos.participants.ParticipantCreate;
 import org.hometask.dtos.participants.ParticipantUpdate;
@@ -24,8 +25,8 @@ public class ParticipantController {
 
     @Operation(summary = "add participant and create person to database")
     @PostMapping
-    public Participant addParticipant(@Valid @RequestBody ParticipantCreate participantCreate) throws Exception {
-        return participantService.addParticipant(participantCreate);
+    public Participant addParticipant(@Valid @RequestBody Event event, ParticipantCreate participantCreate) throws Exception {
+        return participantService.addParticipant(event, participantCreate);
     }
 
     @Operation(summary = "find all event participants")
