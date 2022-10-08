@@ -18,6 +18,8 @@ public class EventService {
 
     @Resource
     private EventRepository eventRepository;
+    @Resource
+    private ParticipantService participantService;
 
     @Resource
     private EventMapper eventMapper;
@@ -36,14 +38,17 @@ public class EventService {
         List<EventEntity> eventEntities = eventRepository.findByEventDateGreaterThan(LocalDateTime.now());
         return eventMapper.eventEntitiesToEvents(eventEntities);
     }
+    public Boolean eventInFutureCheck(UUID eventId){
+        return eventRepository.findById(eventId).orElseThrow().getEventDate().isAfter(LocalDateTime.now());
+    }
     public List<Event> findAllPastEvents(){
         List<EventEntity> eventEntities = eventRepository.findByEventDateLessThan(LocalDateTime.now());
         return eventMapper.eventEntitiesToEvents(eventEntities);
     }
 
     public Event updateEvent(UUID eventId, EventUpdate eventUpdate) {
-        EventEntity eventEntity = eventRepository.findById(eventId).get();
-        if (eventUpdate.getEventDate().isAfter(LocalDateTime.now())) {
+        EventEntity eventEntity = eventRepository.findById(eventId).orElseThrow();
+        if (eventInFutureCheck(eventId)) {
             eventEntity.setName(eventUpdate.getName());
             eventEntity.setAddress(eventUpdate.getAddress());
             eventEntity.setEventDate(eventUpdate.getEventDate());
@@ -55,7 +60,10 @@ public class EventService {
         }
     }
     public void deleteEvent (UUID eventId){
+        participantService.deleteAllParticipants(eventId);
         eventRepository.delete(eventRepository.findById(eventId).get());
     }
+
+
 
 }

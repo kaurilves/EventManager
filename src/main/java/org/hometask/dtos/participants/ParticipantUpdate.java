@@ -6,12 +6,11 @@ import org.hometask.models.PersonType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.UUID;
 
 @Data
-public class ParticipantCreate implements Serializable {
+public class ParticipantUpdate {
 
     @NotNull
     @NotBlank
@@ -35,5 +34,4 @@ public class ParticipantCreate implements Serializable {
     private Integer participantsCount;
 
     private  String additionalInfo;
-
 }

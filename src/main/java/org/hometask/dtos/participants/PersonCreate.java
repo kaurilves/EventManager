@@ -20,7 +20,6 @@ public class PersonCreate implements Serializable {
     @NotNull
     private BigInteger idNumber;
 
-
     @NotNull
     private PersonType personType;
 

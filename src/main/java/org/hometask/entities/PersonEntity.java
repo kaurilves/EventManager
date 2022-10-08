@@ -12,13 +12,13 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "persons", schema = ServiceConfig.SCHEMA_NAME)
 public class PersonEntity{
 
     @Id
+    @GeneratedValue
     @Column
     private UUID id;
 

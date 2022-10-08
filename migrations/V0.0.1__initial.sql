@@ -5,7 +5,6 @@ create schema if not exists hometask;
 
 create table hometask.events(
     id uuid default uuid_generate_v4() primary key,
-
     name varchar(150) not null,
     address varchar(250) not null,
     event_date timestamp with time zone not null,
@@ -29,8 +28,8 @@ create table hometask.persons(
 
 create table hometask.participants(
     id uuid default uuid_generate_v4() primary key,
-    eventId uuid not null references hometask.payment_types(id),
-    personId uuid not null references hometask.persons(id),
+    event_id uuid not null references hometask.events(id),
+    person_id uuid not null references hometask.persons(id),
     payment_type uuid not null references hometask.payment_types(id),
     participants_count integer not null default 1,
     additional_info text
