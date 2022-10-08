@@ -39,14 +39,17 @@ public class ParticipantService {
 
 
     public Participant addParticipant(ParticipantCreate participantCreate) throws Exception {
+        // Kui ürituse kuupäev on minevikus, siis viska exeption
         if (eventService.getEvent(participantCreate.getEventId()).getEventDate().isBefore(LocalDateTime.now())){
             throw new Exception("Can´t add participants to past event");
         } else {
             ParticipantEntity participantEntity = participantMapper
                     .participantCreateToParticipantEntity(participantCreate);
             Boolean personExistsInDatabase = personService.personExistsByIdNumber(participantCreate.getIdNumber());
+            // Kui personEntity on juba databaasis ja osaleb/on osalenud üritustel, siis kasutame seda personEntityt
             if (personExistsInDatabase) {
                 participantEntity.setPersonId(personService.getPersonByIdNumber(participantCreate.getIdNumber()).getId());
+                // Kui personEntity ei ole databaasis, siis loome uue personEntity
             } else {
                 participantEntity.setPersonId(personService.addPerson(participantCreate).getId());
             }
@@ -65,13 +68,18 @@ public class ParticipantService {
     }
 
     public Participant updateParticipant(UUID participantId, ParticipantUpdate participantUpdate) throws Exception {
+        // Kui ürituse kuupäev on minevikus, siis viska exeption
         if (eventService.getEvent(participantUpdate.getEventId()).getEventDate().isBefore(LocalDateTime.now())){
             throw new Exception("Can´t update participants of past event");
         } else {
             ParticipantEntity participantEntity = participantRepository.findById(participantId).orElseThrow();
+
+            // Kui personEnitity osaleb ainult ühel üritusel, siis uuendame seda person enitityt
             if (sumPersonParticipations(participantId) == 1) {
                 participantEntity.setPersonId(personService.updatePerson(
                         participantEntity.getPersonId(), participantUpdate).getId());
+
+                // Kui persoEntity osaleb rohkematel ürtistel, siis uuendamise asemel lisame andmebaasi uue personEntity
             } else {
                 participantEntity.setPersonId(personService.addPerson(
                         participantMapper.participantUpdateToParticipantCreate(participantUpdate)).getId());
@@ -87,7 +95,8 @@ public class ParticipantService {
     }
 
     public void deleteParticipant(UUID participantId) {
-        if (sumPersonParticipations(participantId) == 1) {
+        // Kui person entity osaleb ainult ühel üritusel ja sealt ta kustutame, siis kustutame ka persontabelist.
+        if (sumPersonParticipations(participantId) == 1)  {
             personService.deletePerson(participantRepository.findById(participantId).orElseThrow().getPersonId());
             participantRepository.deleteById(participantId);
         } else {
