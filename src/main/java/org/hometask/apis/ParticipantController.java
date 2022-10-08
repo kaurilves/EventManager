@@ -24,7 +24,7 @@ public class ParticipantController {
 
     @Operation(summary = "add participant and create person to database")
     @PostMapping
-    public Participant addParticipant(@Valid @RequestBody ParticipantCreate participantCreate) {
+    public Participant addParticipant(@Valid @RequestBody ParticipantCreate participantCreate) throws Exception {
         return participantService.addParticipant(participantCreate);
     }
 

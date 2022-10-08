@@ -47,7 +47,7 @@ public class EventController {
 
     @Operation(summary = "update upcoming event")
     @PutMapping("/{eventId}")
-    public Event updateEvent(@RequestParam UUID eventId, @Valid @RequestBody EventUpdate eventUpdate) {
+    public Event updateEvent(@RequestParam UUID eventId, @Valid @RequestBody EventUpdate eventUpdate) throws Exception {
         return eventService.updateEvent(eventId, eventUpdate);
     }
 
