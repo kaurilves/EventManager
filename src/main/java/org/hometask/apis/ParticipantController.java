@@ -10,6 +10,7 @@ import org.hometask.services.ParticipantService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -22,7 +23,7 @@ public class ParticipantController {
 
     @Operation(summary = "add participant and create person to database")
     @PostMapping
-    public Participant addParticipant(@RequestBody PersonCreate personCreate, @RequestBody ParticipantCreate participantCreate) {
+    public Participant addParticipant(@Valid @RequestBody PersonCreate personCreate, @Valid @RequestBody ParticipantCreate participantCreate) {
         return participantService.addParticipant(personCreate, participantCreate);
     }
 
