@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @Data
-
 public class ParticipantCreate implements Serializable {
 
     @NotNull
@@ -23,11 +22,4 @@ public class ParticipantCreate implements Serializable {
 
     private  String additionalInfo;
 
-    public UUID getPaymentTypeId() {
-        return paymentTypeId;
-    }
-
-    public void setPaymentTypeId(UUID paymentTypeId) {
-        this.paymentTypeId = paymentTypeId;
-    }
 }

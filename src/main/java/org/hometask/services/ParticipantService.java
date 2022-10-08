@@ -30,12 +30,10 @@ public class ParticipantService {
 
 
     public Participant addParticipant(PersonCreate personCreate, ParticipantCreate participantCreate) {
-        ParticipantEntity participantEntity = new ParticipantEntity();
-        participantEntity = participantMapper.participantCreateToParticipantEntity(participantCreate);
+        ParticipantEntity participantEntity = participantMapper.participantCreateToParticipantEntity(participantCreate);
         participantEntity.setPersonId(personService.addPerson(personCreate).getId());
         participantEntity.setPaymentTypeEntity(paymentTypeRepository.getReferenceById(participantCreate.getPaymentTypeId()));
         participantRepository.save(participantEntity);
         return participantMapper.participantEntityToParticipant(participantEntity);
-
     }
 }

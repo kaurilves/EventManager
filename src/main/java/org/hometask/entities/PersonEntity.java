@@ -6,6 +6,7 @@ import org.hometask.models.PersonType;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.UUID;
 
 
 @Entity
@@ -15,8 +16,11 @@ import java.math.BigInteger;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "persons", schema = ServiceConfig.SCHEMA_NAME)
-public class PersonEntity extends IdEntity {
+public class PersonEntity{
 
+    @Id
+    @Column
+    private UUID id;
 
     @Column
     private String name;

@@ -1,10 +1,13 @@
 package org.hometask.entities;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 import org.hometask.config.ServiceConfig;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 
 @Entity
@@ -13,7 +16,11 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EventEntity extends IdEntity {
+public class EventEntity{
+
+    @Id
+    @Column(name = "id", nullable = false)
+    private UUID id;
 
     @Column
     private String name;

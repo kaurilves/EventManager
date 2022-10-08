@@ -18,8 +18,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "participants", schema = ServiceConfig.SCHEMA_NAME)
-public class ParticipantEntity extends IdEntity {
+public class ParticipantEntity {
 
+    @Id
+    @Column
+    private UUID id;
 
     @Column
     private UUID eventId;
