@@ -1,12 +1,12 @@
 package org.hometask.repositories;
 
-import org.hometask.entities.EventEntity;
+
 import org.hometask.entities.ParticipantEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.annotation.Resource;
-import java.math.BigInteger;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -18,5 +18,5 @@ public interface ParticipantRepository extends JpaRepository<ParticipantEntity, 
 
     void deleteAllByEventId(UUID eventId);
 
-    boolean existsByIdNumber(BigInteger idNumber);
+    boolean existsByPersonId(UUID personId);
 }

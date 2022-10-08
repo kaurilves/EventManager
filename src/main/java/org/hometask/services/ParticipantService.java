@@ -33,13 +33,14 @@ public class ParticipantService {
 
 
     public Participant addParticipant(ParticipantCreate participantCreate) throws Exception {
-        boolean existsByIdNumber = participantRepository.existsByIdNumber(participantCreate.getIdNumber());
-        if (!existsByIdNumber) {
+        boolean alreadyParticipates = participantRepository.existsByPersonId(
+                personService.getPersonByIdNumber(participantCreate.getIdNumber()).getId());
+        if (!alreadyParticipates) {
             ParticipantEntity participantEntity = participantMapper
                     .participantCreateToParticipantEntity(participantCreate);
             participantEntity.setPersonId(personService.addPerson(participantCreate).getId());
-            participantEntity.setPaymentTypeEntity
-                    (paymentTypeRepository.getReferenceById(participantCreate.getPaymentTypeId()));
+            participantEntity.setPaymentTypeEntity(paymentTypeRepository
+                    .getReferenceById(participantCreate.getPaymentTypeId()));
             participantRepository.save(participantEntity);
 
             return participantMapper.participantEntityToParticipant(participantEntity);

@@ -11,6 +11,7 @@ import org.hometask.repositories.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigInteger;
 import java.util.UUID;
 
 @Service
@@ -31,6 +32,10 @@ public Person addPerson(ParticipantCreate participantCreate){
         PersonEntity personEntity = personRepository.save(personMapper.participantCreateToPersonEntity(participantCreate));
         return personMapper.personEntityToPerson(personEntity);
     }
+}
+
+public Person getPersonByIdNumber(BigInteger personId){
+    return personMapper.personEntityToPerson(personRepository.findByIdNumber(personId));
 }
 
 public Person updatePerson (UUID personId, PersonUpdate personUpdate){
