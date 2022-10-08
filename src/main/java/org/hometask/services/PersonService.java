@@ -24,26 +24,26 @@ public class PersonService {
     private PersonMapper personMapper;
 
 
-public Person addPerson(ParticipantCreate participantCreate){
-    boolean personExistInDatabase = personRepository.existsByIdNumber(participantCreate.getIdNumber());
-    if(personExistInDatabase){
-        return personMapper.personEntityToPerson(personRepository.findByIdNumber(participantCreate.getIdNumber()));
-    } else {
-        PersonEntity personEntity = personRepository.save(personMapper.participantCreateToPersonEntity(participantCreate));
+    public Person addPerson(ParticipantCreate participantCreate) {
+        boolean personExistInDatabase = personRepository.existsByIdNumber(participantCreate.getIdNumber());
+        if (personExistInDatabase) {
+            return personMapper.personEntityToPerson(personRepository.findByIdNumber(participantCreate.getIdNumber()));
+        } else {
+            PersonEntity personEntity = personRepository.save(personMapper.participantCreateToPersonEntity(participantCreate));
+            return personMapper.personEntityToPerson(personEntity);
+        }
+    }
+
+    public Person getPersonByIdNumber(BigInteger personId) {
+        return personMapper.personEntityToPerson(personRepository.findByIdNumber(personId));
+    }
+
+    public Person updatePerson(UUID personId, PersonUpdate personUpdate) {
+        PersonEntity personEntity = personRepository.findById(personId).orElseThrow();
+        personEntity.setName(personUpdate.getName());
+        personEntity.setIdNumber(personUpdate.getIdNumber());
+        personRepository.save(personEntity);
         return personMapper.personEntityToPerson(personEntity);
     }
-}
-
-public Person getPersonByIdNumber(BigInteger personId){
-    return personMapper.personEntityToPerson(personRepository.findByIdNumber(personId));
-}
-
-public Person updatePerson (UUID personId, PersonUpdate personUpdate){
-    PersonEntity personEntity = personRepository.findById(personId).orElseThrow();
-    personEntity.setName(personUpdate.getName());
-    personEntity.setIdNumber(personUpdate.getIdNumber());
-    personRepository.save(personEntity);
-    return personMapper.personEntityToPerson(personEntity);
-}
 
 }

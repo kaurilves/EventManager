@@ -29,6 +29,7 @@ public class PersonEntity {
     private BigInteger idNumber;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private PersonType personType;
 
 }

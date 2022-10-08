@@ -9,6 +9,7 @@ import org.hometask.repositories.EventRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -39,9 +40,7 @@ public class EventService {
         return eventMapper.eventEntitiesToEvents(eventEntities);
     }
 
-    public Boolean eventInFutureCheck(UUID eventId) {
-        return eventRepository.findById(eventId).orElseThrow().getEventDate().isAfter(LocalDateTime.now());
-    }
+
 
     public List<Event> findAllPastEvents() {
         List<EventEntity> eventEntities = eventRepository.findByEventDateLessThan(LocalDateTime.now());
@@ -50,21 +49,20 @@ public class EventService {
 
     public Event updateEvent(UUID eventId, EventUpdate eventUpdate) throws Exception {
         EventEntity eventEntity = eventRepository.findById(eventId).orElseThrow();
-        if (eventInFutureCheck(eventId)) {
-            eventEntity.setName(eventUpdate.getName());
-            eventEntity.setAddress(eventUpdate.getAddress());
-            eventEntity.setEventDate(eventUpdate.getEventDate());
-            eventEntity.setAdditionalInfo(eventUpdate.getAdditionalInfo());
-            eventRepository.save(eventEntity);
-            return eventMapper.eventEntityToEvent(eventEntity);
-        } else {
+        if (eventEntity.getEventDate().isBefore(LocalDateTime.now())) {
             throw new Exception("Can´t update past events");
         }
+        eventEntity.setName(eventUpdate.getName());
+        eventEntity.setAddress(eventUpdate.getAddress());
+        eventEntity.setEventDate(eventUpdate.getEventDate());
+        eventEntity.setAdditionalInfo(eventUpdate.getAdditionalInfo());
+        eventRepository.save(eventEntity);
+        return eventMapper.eventEntityToEvent(eventEntity);
     }
 
     public void deleteEvent(UUID eventId) {
-        eventRepository.delete(eventRepository.findById(eventId).get());
         participantService.deleteAllParticipants(eventId);
+        eventRepository.delete(eventRepository.findById(eventId).get());
     }
 
 

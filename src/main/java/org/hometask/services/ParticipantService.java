@@ -35,7 +35,9 @@ public class ParticipantService {
     public Participant addParticipant(ParticipantCreate participantCreate) throws Exception {
         boolean alreadyParticipates = participantRepository.existsByPersonId(
                 personService.getPersonByIdNumber(participantCreate.getIdNumber()).getId());
-        if (!alreadyParticipates) {
+        if (alreadyParticipates) {
+            throw new Exception("Person with a same idNumber already participates this event");
+        } else {
             ParticipantEntity participantEntity = participantMapper
                     .participantCreateToParticipantEntity(participantCreate);
             participantEntity.setPersonId(personService.addPerson(participantCreate).getId());
@@ -44,9 +46,7 @@ public class ParticipantService {
             participantRepository.save(participantEntity);
 
             return participantMapper.participantEntityToParticipant(participantEntity);
-        } else {
 
-            throw new Exception("Person with a same idNumber already participates this event");
         }
     }
 
