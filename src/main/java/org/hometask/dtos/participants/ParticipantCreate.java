@@ -34,6 +34,6 @@ public class ParticipantCreate implements Serializable {
     @NotNull
     private Integer participantsCount;
 
-    private  String additionalInfo;
+    private String additionalInfo;
 
 }

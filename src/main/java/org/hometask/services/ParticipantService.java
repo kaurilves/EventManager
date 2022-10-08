@@ -31,12 +31,10 @@ public class ParticipantService {
     @Resource
     private PaymentTypeRepository paymentTypeRepository;
 
-    @Resource
-    private EventService eventService;
 
-
-    public Participant addParticipant(ParticipantCreate participantCreate) {
-        if (eventService.eventInFutureCheck(participantCreate.getEventId())) {
+    public Participant addParticipant(ParticipantCreate participantCreate) throws Exception {
+        boolean existsByIdNumber = participantRepository.existsByIdNumber(participantCreate.getIdNumber());
+        if (!existsByIdNumber) {
             ParticipantEntity participantEntity = participantMapper
                     .participantCreateToParticipantEntity(participantCreate);
             participantEntity.setPersonId(personService.addPerson(participantCreate).getId());
@@ -46,7 +44,8 @@ public class ParticipantService {
 
             return participantMapper.participantEntityToParticipant(participantEntity);
         } else {
-            return null;
+
+            throw new Exception("Person with a same idNumber already participates this event");
         }
     }
 
@@ -57,20 +56,16 @@ public class ParticipantService {
     }
 
     public Participant updateParticipant(UUID participantId, ParticipantUpdate participantUpdate) {
-        if (eventService.eventInFutureCheck(participantUpdate.getEventId())) {
-            ParticipantEntity participantEntity = participantRepository.findById(participantId).orElseThrow();
-            participantEntity.setPersonId(personService.addPerson(
-                    participantMapper.participantUpdateToParticipantCreate(participantUpdate)).getId());
-            participantEntity.setPaymentTypeEntity(
-                    paymentTypeRepository.getReferenceById(participantUpdate.getPaymentTypeId()));
-            participantEntity.setParticipantsCount(participantUpdate.getParticipantsCount());
-            participantEntity.setAdditionalInfo(participantUpdate.getAdditionalInfo());
-            participantRepository.save(participantEntity);
+        ParticipantEntity participantEntity = participantRepository.findById(participantId).orElseThrow();
+        participantEntity.setPersonId(personService.addPerson(
+                participantMapper.participantUpdateToParticipantCreate(participantUpdate)).getId());
+        participantEntity.setPaymentTypeEntity(
+                paymentTypeRepository.getReferenceById(participantUpdate.getPaymentTypeId()));
+        participantEntity.setParticipantsCount(participantUpdate.getParticipantsCount());
+        participantEntity.setAdditionalInfo(participantUpdate.getAdditionalInfo());
+        participantRepository.save(participantEntity);
 
-            return participantMapper.participantEntityToParticipant(participantEntity);
-        } else {
-            return null;
-        }
+        return participantMapper.participantEntityToParticipant(participantEntity);
     }
 
     public void deleteParticipant(UUID participantId) {

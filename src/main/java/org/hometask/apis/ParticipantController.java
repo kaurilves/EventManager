@@ -33,6 +33,7 @@ public class ParticipantController {
     public List<Participant> findEventParticipants(@RequestParam UUID eventId) {
         return participantService.findEventParticipants(eventId);
     }
+
     @Operation(summary = "count all event participants")
     @GetMapping("/count/{eventId}")
     public Integer countEventParticipants(@RequestParam UUID eventId) {
@@ -50,7 +51,6 @@ public class ParticipantController {
     public void deleteParticipant(@RequestParam UUID participantId) {
         participantService.deleteParticipant(participantId);
     }
-
 
 
 }

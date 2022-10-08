@@ -1,9 +1,9 @@
 package org.hometask.services;
 
-import org.hometask.dtos.event.EventUpdate;
+
 import org.hometask.dtos.participants.ParticipantCreate;
 import org.hometask.dtos.participants.Person;
-import org.hometask.dtos.participants.PersonCreate;
+
 import org.hometask.dtos.participants.PersonUpdate;
 import org.hometask.entities.PersonEntity;
 import org.hometask.mappers.PersonMapper;
@@ -11,7 +11,6 @@ import org.hometask.repositories.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.math.BigInteger;
 import java.util.UUID;
 
 @Service

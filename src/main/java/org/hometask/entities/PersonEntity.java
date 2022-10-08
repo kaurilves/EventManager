@@ -15,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "persons", schema = ServiceConfig.SCHEMA_NAME)
-public class PersonEntity{
+public class PersonEntity {
 
     @Id
     @GeneratedValue

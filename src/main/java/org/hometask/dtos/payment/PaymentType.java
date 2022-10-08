@@ -9,6 +9,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 public class PaymentType implements Serializable {
-    private  UUID id;
-    private  String name;
+    private UUID id;
+    private String name;
 }

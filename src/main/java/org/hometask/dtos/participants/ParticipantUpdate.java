@@ -33,5 +33,5 @@ public class ParticipantUpdate {
     @NotNull
     private Integer participantsCount;
 
-    private  String additionalInfo;
+    private String additionalInfo;
 }

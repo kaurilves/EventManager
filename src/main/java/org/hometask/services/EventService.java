@@ -24,29 +24,31 @@ public class EventService {
     @Resource
     private EventMapper eventMapper;
 
-    public Event createEvent (EventCreate eventCreate){
+    public Event createEvent(EventCreate eventCreate) {
         EventEntity event = eventRepository.save(eventMapper.eventCreateToEventEntity(eventCreate));
         return eventMapper.eventEntityToEvent(event);
     }
 
-    public Event getEvent (UUID eventId){
+    public Event getEvent(UUID eventId) {
         EventEntity eventEntity = eventRepository.findById(eventId).get();
-       return eventMapper.eventEntityToEvent(eventEntity);
+        return eventMapper.eventEntityToEvent(eventEntity);
     }
 
-    public List<Event> findAllFutureEvents(){
+    public List<Event> findAllFutureEvents() {
         List<EventEntity> eventEntities = eventRepository.findByEventDateGreaterThan(LocalDateTime.now());
         return eventMapper.eventEntitiesToEvents(eventEntities);
     }
-    public Boolean eventInFutureCheck(UUID eventId){
+
+    public Boolean eventInFutureCheck(UUID eventId) {
         return eventRepository.findById(eventId).orElseThrow().getEventDate().isAfter(LocalDateTime.now());
     }
-    public List<Event> findAllPastEvents(){
+
+    public List<Event> findAllPastEvents() {
         List<EventEntity> eventEntities = eventRepository.findByEventDateLessThan(LocalDateTime.now());
         return eventMapper.eventEntitiesToEvents(eventEntities);
     }
 
-    public Event updateEvent(UUID eventId, EventUpdate eventUpdate) {
+    public Event updateEvent(UUID eventId, EventUpdate eventUpdate) throws Exception {
         EventEntity eventEntity = eventRepository.findById(eventId).orElseThrow();
         if (eventInFutureCheck(eventId)) {
             eventEntity.setName(eventUpdate.getName());
@@ -56,14 +58,14 @@ public class EventService {
             eventRepository.save(eventEntity);
             return eventMapper.eventEntityToEvent(eventEntity);
         } else {
-            return null;
+            throw new Exception("Can´t update past events");
         }
     }
-    public void deleteEvent (UUID eventId){
-        participantService.deleteAllParticipants(eventId);
-        eventRepository.delete(eventRepository.findById(eventId).get());
-    }
 
+    public void deleteEvent(UUID eventId) {
+        eventRepository.delete(eventRepository.findById(eventId).get());
+        participantService.deleteAllParticipants(eventId);
+    }
 
 
 }

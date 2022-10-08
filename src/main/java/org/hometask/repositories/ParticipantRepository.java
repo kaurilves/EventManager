@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.annotation.Resource;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,4 +17,6 @@ public interface ParticipantRepository extends JpaRepository<ParticipantEntity, 
     List<ParticipantEntity> findParticipantsBy(UUID eventId);
 
     void deleteAllByEventId(UUID eventId);
+
+    boolean existsByIdNumber(BigInteger idNumber);
 }

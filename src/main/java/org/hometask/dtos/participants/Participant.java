@@ -23,5 +23,5 @@ public class Participant implements Serializable {
     @Size(min = 1)
     private Integer participantsCount;
 
-    private  String additionalInfo;
+    private String additionalInfo;
 }

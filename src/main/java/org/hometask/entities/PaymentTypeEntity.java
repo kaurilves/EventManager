@@ -12,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "payment_types", schema = ServiceConfig.SCHEMA_NAME)
-public class PaymentTypeEntity{
+public class PaymentTypeEntity {
 
     @Id
     @GeneratedValue

@@ -18,8 +18,4 @@ public interface EventRepository extends JpaRepository<EventEntity, UUID> {
     List<EventEntity> findByEventDateLessThan(LocalDateTime eventDate);
 
 
-
-
-
-
 }

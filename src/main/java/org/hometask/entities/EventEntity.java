@@ -1,11 +1,10 @@
 package org.hometask.entities;
 
 import lombok.*;
-import org.hibernate.annotations.Type;
+
 import org.hometask.config.ServiceConfig;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
 

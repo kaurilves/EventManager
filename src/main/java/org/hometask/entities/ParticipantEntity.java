@@ -1,8 +1,7 @@
 package org.hometask.entities;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
-import net.bytebuddy.implementation.bind.annotation.Super;
+
 import org.hometask.config.ServiceConfig;
 
 import javax.persistence.*;
