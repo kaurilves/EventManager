@@ -1,4 +1,4 @@
-package org.hometask.dtos;
+package org.hometask.dtos.payment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -2,8 +2,8 @@ package org.hometask.apis;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.hometask.dtos.PaymentType;
-import org.hometask.dtos.PaymentTypeCreate;
+import org.hometask.dtos.payment.PaymentType;
+import org.hometask.dtos.payment.PaymentTypeCreate;
 import org.hometask.services.PaymentTypeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +12,8 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@Tag(name = "Payment Types")
-@RequestMapping("/payment-types")
+@Tag(name = "Payments")
+@RequestMapping("/payments")
 public class PaymentTypeController {
 
     @Resource

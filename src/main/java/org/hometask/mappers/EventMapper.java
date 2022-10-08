@@ -1,7 +1,7 @@
 package org.hometask.mappers;
 
-import org.hometask.dtos.Event;
-import org.hometask.dtos.EventCreate;
+import org.hometask.dtos.event.Event;
+import org.hometask.dtos.event.EventCreate;
 import org.hometask.entities.EventEntity;
 import org.mapstruct.*;
 

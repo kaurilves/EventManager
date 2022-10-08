@@ -1,0 +1,33 @@
+package org.hometask.dtos.participants;
+
+import lombok.Data;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.UUID;
+
+@Data
+
+public class ParticipantCreate implements Serializable {
+
+    @NotNull
+    private UUID eventId;
+
+    @NotNull
+    private UUID paymentTypeId;
+
+    @NotNull
+    @Size(min = 1)
+    private Integer participantsCount;
+
+    private  String additionalInfo;
+
+    public UUID getPaymentTypeId() {
+        return paymentTypeId;
+    }
+
+    public void setPaymentTypeId(UUID paymentTypeId) {
+        this.paymentTypeId = paymentTypeId;
+    }
+}

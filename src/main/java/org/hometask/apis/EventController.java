@@ -2,9 +2,9 @@ package org.hometask.apis;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.hometask.dtos.Event;
-import org.hometask.dtos.EventCreate;
-import org.hometask.dtos.EventUpdate;
+import org.hometask.dtos.event.Event;
+import org.hometask.dtos.event.EventCreate;
+import org.hometask.dtos.event.EventUpdate;
 import org.hometask.services.EventService;
 import org.springframework.web.bind.annotation.*;
 

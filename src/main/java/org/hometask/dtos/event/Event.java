@@ -1,5 +1,6 @@
-package org.hometask.dtos;
+package org.hometask.dtos.event;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -7,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
+
 public class Event implements Serializable {
     private  UUID id;
     private  String name;

@@ -42,5 +42,4 @@ public abstract class IdEntity {
         updatedAt = LocalDateTime.now();
     }
 
-
 }

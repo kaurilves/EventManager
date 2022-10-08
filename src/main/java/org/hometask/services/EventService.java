@@ -1,8 +1,8 @@
 package org.hometask.services;
 
-import org.hometask.dtos.Event;
-import org.hometask.dtos.EventCreate;
-import org.hometask.dtos.EventUpdate;
+import org.hometask.dtos.event.Event;
+import org.hometask.dtos.event.EventCreate;
+import org.hometask.dtos.event.EventUpdate;
 import org.hometask.entities.EventEntity;
 import org.hometask.mappers.EventMapper;
 import org.hometask.repositories.EventRepository;

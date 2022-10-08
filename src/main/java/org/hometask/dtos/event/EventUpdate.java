@@ -1,6 +1,7 @@
-package org.hometask.dtos;
+package org.hometask.dtos.event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.Future;

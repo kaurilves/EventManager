@@ -1,7 +1,7 @@
 package org.hometask.mappers;
 
-import org.hometask.dtos.PaymentType;
-import org.hometask.dtos.PaymentTypeCreate;
+import org.hometask.dtos.payment.PaymentType;
+import org.hometask.dtos.payment.PaymentTypeCreate;
 import org.hometask.entities.PaymentTypeEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

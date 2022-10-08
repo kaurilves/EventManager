@@ -1,7 +1,7 @@
 package org.hometask.services;
 
-import org.hometask.dtos.PaymentType;
-import org.hometask.dtos.PaymentTypeCreate;
+import org.hometask.dtos.payment.PaymentType;
+import org.hometask.dtos.payment.PaymentTypeCreate;
 import org.hometask.entities.PaymentTypeEntity;
 import org.hometask.mappers.PaymentTypeMapper;
 import org.hometask.repositories.PaymentTypeRepository;
