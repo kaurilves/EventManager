@@ -37,16 +37,16 @@ public class ParticipantController {
     @Operation(summary = "count all event participants")
     @GetMapping("/count/{eventId}")
     public Integer countEventParticipants(@RequestParam UUID eventId) {
-        return participantService.countEventParticipants(eventId);
+        return participantService.sumEventParticipants(eventId);
     }
 
     @Operation(summary = "update participation information")
     @PutMapping("/{participantId}")
-    public Participant updateParticipant(@RequestParam UUID participantId, @Valid @RequestBody ParticipantUpdate participantUpdate) {
+    public Participant updateParticipant(@RequestParam UUID participantId, @Valid @RequestBody ParticipantUpdate participantUpdate) throws Exception {
         return participantService.updateParticipant(participantId, participantUpdate);
     }
 
-    @Operation(summary = "update participation information")
+    @Operation(summary = "delete participation")
     @DeleteMapping("/{participantId}")
     public void deleteParticipant(@RequestParam UUID participantId) {
         participantService.deleteParticipant(participantId);

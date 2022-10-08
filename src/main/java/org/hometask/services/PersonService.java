@@ -2,9 +2,9 @@ package org.hometask.services;
 
 
 import org.hometask.dtos.participants.ParticipantCreate;
+import org.hometask.dtos.participants.ParticipantUpdate;
 import org.hometask.dtos.participants.Person;
 
-import org.hometask.dtos.participants.PersonUpdate;
 import org.hometask.entities.PersonEntity;
 import org.hometask.mappers.PersonMapper;
 import org.hometask.repositories.PersonRepository;
@@ -25,25 +25,33 @@ public class PersonService {
 
 
     public Person addPerson(ParticipantCreate participantCreate) {
-        boolean personExistInDatabase = personRepository.existsByIdNumber(participantCreate.getIdNumber());
-        if (personExistInDatabase) {
-            return personMapper.personEntityToPerson(personRepository.findByIdNumber(participantCreate.getIdNumber()));
-        } else {
-            PersonEntity personEntity = personRepository.save(personMapper.participantCreateToPersonEntity(participantCreate));
-            return personMapper.personEntityToPerson(personEntity);
-        }
+        PersonEntity personEntity = personRepository.save(personMapper.participantCreateToPersonEntity(participantCreate));
+        return personMapper.personEntityToPerson(personEntity);
     }
 
-    public Person getPersonByIdNumber(BigInteger personId) {
-        return personMapper.personEntityToPerson(personRepository.findByIdNumber(personId));
+    public Person getPerson(UUID personId) {
+        return personMapper.personEntityToPerson(personRepository.findById(personId).orElseThrow());
     }
 
-    public Person updatePerson(UUID personId, PersonUpdate personUpdate) {
+    public Person updatePerson(UUID personId, ParticipantUpdate participantUpdate) {
         PersonEntity personEntity = personRepository.findById(personId).orElseThrow();
-        personEntity.setName(personUpdate.getName());
-        personEntity.setIdNumber(personUpdate.getIdNumber());
+        personEntity.setName(participantUpdate.getName());
+        personEntity.setIdNumber(participantUpdate.getIdNumber());
         personRepository.save(personEntity);
         return personMapper.personEntityToPerson(personEntity);
+    }
+
+    public void deletePerson(UUID personId){
+        personRepository.deleteById(personId);
+    }
+
+    public Boolean personExistsByIdNumber (BigInteger idNumber){
+        return personRepository.existsByIdNumber(idNumber);
+    }
+
+    public Person getPersonByIdNumber(BigInteger idNumber) {
+        return personMapper.personEntityToPerson(personRepository.findByIdNumber(idNumber));
+
     }
 
 }

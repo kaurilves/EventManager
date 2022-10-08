@@ -15,6 +15,4 @@ public interface PersonRepository extends JpaRepository<PersonEntity, UUID> {
     boolean existsByIdNumber(BigInteger idNumber);
 
     PersonEntity findByIdNumber(BigInteger idNumber);
-
-
 }

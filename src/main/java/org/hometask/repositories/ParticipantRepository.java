@@ -19,5 +19,5 @@ public interface ParticipantRepository extends JpaRepository<ParticipantEntity, 
 
     void deleteAllByEventId(UUID eventId);
 
-    boolean existsByPersonId(UUID personId);
+    Integer countById(UUID participantId);
 }

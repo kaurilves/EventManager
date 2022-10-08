@@ -26,7 +26,6 @@ public class ParticipantEntity {
     private UUID eventId;
 
     @Column
-
     private UUID personId;
 
     @ManyToOne(fetch = FetchType.EAGER)

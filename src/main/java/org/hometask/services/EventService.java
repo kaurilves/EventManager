@@ -9,6 +9,7 @@ import org.hometask.repositories.EventRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -40,8 +41,6 @@ public class EventService {
         return eventMapper.eventEntitiesToEvents(eventEntities);
     }
 
-
-
     public List<Event> findAllPastEvents() {
         List<EventEntity> eventEntities = eventRepository.findByEventDateLessThan(LocalDateTime.now());
         return eventMapper.eventEntitiesToEvents(eventEntities);
@@ -59,7 +58,7 @@ public class EventService {
         eventRepository.save(eventEntity);
         return eventMapper.eventEntityToEvent(eventEntity);
     }
-
+    @Transactional
     public void deleteEvent(UUID eventId) {
         participantService.deleteAllParticipants(eventId);
         eventRepository.delete(eventRepository.findById(eventId).get());
