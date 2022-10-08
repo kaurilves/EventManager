@@ -40,6 +40,7 @@
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="9e684dbc-9f1f-46ba-ae9a-822061186e28" dataset="hometask.events" active-filter-id="" />
+    <filter-actions connection-id="9e684dbc-9f1f-46ba-ae9a-822061186e28" dataset="hometask.persons" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
