@@ -21,5 +21,11 @@ public interface ParticipantRepository extends JpaRepository<ParticipantEntity, 
 
     boolean existsByIdNumberAndEventId(BigInteger idNumber, UUID eventId);
 
+    ParticipantEntity findByEventIdAndIdNumber(UUID eventId, BigInteger idNumber);
+
+
+
+
+
 
 }

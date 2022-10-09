@@ -36,7 +36,7 @@ public class ParticipantService {
         if (event.getEventDate().isBefore(LocalDateTime.now())) {
             throw new Exception("Can´t add participants to past event");
         } else {
-            if (participantRepository.existsByIdNumberAndEventId(participantCreate.getIdNumber(),event.getId())){
+            if (participantRepository.existsByIdNumberAndEventId(participantCreate.getIdNumber(), event.getId())) {
                 throw new Exception("Person already participates this event");
             } else {
                 ParticipantEntity participantEntity = participantMapper.participantCreateToParticipantEntity(participantCreate);
@@ -52,19 +52,20 @@ public class ParticipantService {
         if (event.getEventDate().isBefore(LocalDateTime.now())) {
             throw new Exception("Can´t update participants of past event");
         } else {
-            if (participantRepository.existsByIdNumberAndEventId(participantUpdate.getIdNumber(),event.getId())){
-                throw new Exception("Person already participates this event");
-            } else {
-                ParticipantEntity participantEntity = participantRepository.findById(participantId).orElseThrow();
-                participantEntity.setName(participantUpdate.getName());
-                participantEntity.setIdNumber(participantUpdate.getIdNumber());
-                participantEntity.setPaymentTypeEntity(paymentTypeRepository.getReferenceById(participantUpdate.getPaymentTypeId()));
-                participantEntity.setPersonType(participantUpdate.getPersonType());
-                participantEntity.setParticipantsCount(participantUpdate.getParticipantsCount());
-                participantEntity.setAdditionalInfo(participantUpdate.getAdditionalInfo());
-                participantRepository.save(participantEntity);
-                return participantMapper.participantEntityToParticipant(participantEntity);
-            }
+
+            //       if (participantId !=
+            //              participantRepository.findByEventIdAndIdNumber(event.getId(), participantUpdate.getIdNumber()).getId()) {
+            //           throw new Exception("Person with that idNumber already participates this event");
+            //       } else {
+            ParticipantEntity participantEntity = participantRepository.findById(participantId).orElseThrow();
+            participantEntity.setName(participantUpdate.getName());
+            participantEntity.setIdNumber(participantUpdate.getIdNumber());
+            participantEntity.setPaymentTypeEntity(paymentTypeRepository.getReferenceById(participantUpdate.getPaymentTypeId()));
+            participantEntity.setPersonType(participantUpdate.getPersonType());
+            participantEntity.setParticipantsCount(participantUpdate.getParticipantsCount());
+            participantEntity.setAdditionalInfo(participantUpdate.getAdditionalInfo());
+            participantRepository.save(participantEntity);
+            return participantMapper.participantEntityToParticipant(participantEntity);
         }
     }
 
@@ -74,7 +75,7 @@ public class ParticipantService {
     }
 
     public void deleteParticipant(UUID participantId) {
-            participantRepository.deleteById(participantId);
+        participantRepository.deleteById(participantId);
     }
 
     public void deleteAllParticipants(UUID eventId) {
