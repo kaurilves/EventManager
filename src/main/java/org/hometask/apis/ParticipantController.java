@@ -6,6 +6,7 @@ import org.hometask.dtos.event.Event;
 import org.hometask.dtos.participants.Participant;
 import org.hometask.dtos.participants.ParticipantCreate;
 import org.hometask.dtos.participants.ParticipantUpdate;
+import org.hometask.services.EventService;
 import org.hometask.services.ParticipantService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,16 +19,20 @@ import java.util.UUID;
 @RestController
 @Tag(name = "Participants")
 @RequestMapping("/participants")
-public class ParticipantController {
+public  class ParticipantController {
 
     @Resource
     private ParticipantService participantService;
+    @Resource
+    private EventService eventService;
 
-    @Operation(summary = "add participant and create person to database")
-    @PostMapping
-    public Participant addParticipant(@Valid @RequestBody Event event, ParticipantCreate participantCreate) throws Exception {
+    @Operation(summary = "add participant")
+    @PostMapping("/{eventId}/participant")
+    public Participant addParticipant(@Valid @RequestBody ParticipantCreate participantCreate, @PathVariable UUID eventId)   throws Exception {
+        Event event = eventService.getEvent(eventId);
         return participantService.addParticipant(event, participantCreate);
     }
+
 
     @Operation(summary = "find all event participants")
     @GetMapping("/{eventId}")
@@ -41,10 +46,11 @@ public class ParticipantController {
         return participantService.sumEventParticipants(eventId);
     }
 
+
     @Operation(summary = "update participation information")
-    @PutMapping("/{participantId}")
-    public Participant updateParticipant(@RequestParam UUID participantId, @Valid @RequestBody Event event, ParticipantUpdate participantUpdate) throws Exception {
-        return participantService.updateParticipant(participantId,event, participantUpdate);
+    @PutMapping("/{eventId}/{participantId}")
+    public Participant updateParticipant(@PathVariable UUID eventId, @PathVariable UUID participantId, @Valid @RequestBody ParticipantUpdate participantUpdate) throws Exception {
+        return participantService.updateParticipant(eventService.getEvent(eventId), participantId, participantUpdate);
     }
 
     @Operation(summary = "delete participation")

@@ -31,7 +31,7 @@ public class EventService {
     }
 
     public Event getEvent(UUID eventId) {
-        EventEntity eventEntity = eventRepository.findById(eventId).get();
+        EventEntity eventEntity = eventRepository.findById(eventId).orElseThrow();
         return eventMapper.eventEntityToEvent(eventEntity);
     }
 

@@ -48,7 +48,7 @@ public class ParticipantService {
         }
     }
 
-    public Participant updateParticipant(UUID participantId, Event event, ParticipantUpdate participantUpdate) throws Exception {
+    public Participant updateParticipant(Event event, UUID participantId, ParticipantUpdate participantUpdate) throws Exception {
         if (event.getEventDate().isBefore(LocalDateTime.now())) {
             throw new Exception("Can´t update participants of past event");
         } else {
