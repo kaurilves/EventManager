@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PaymentTypeService {
@@ -19,7 +20,7 @@ public class PaymentTypeService {
     @Resource
     private PaymentTypeMapper paymentTypeMapper;
 
-    public List<PaymentType> getPaymentTypes(){
+    public List<PaymentType> getAllPaymentTypes(){
         return paymentTypeMapper.paymentTypeEntitiesToPaymentTypes(paymentTypeRepository.findAll());
     }
 

@@ -8,16 +8,18 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.UUID;
 
 @Repository
 public interface ParticipantRepository extends JpaRepository<ParticipantEntity, UUID> {
 
-    @Query("select p from ParticipantEntity p where p.eventId = ?1")
-    List<ParticipantEntity> findParticipantsBy(UUID eventId);
+    List<ParticipantEntity> findByEventId(UUID eventId);
 
     void deleteAllByEventId(UUID eventId);
 
-    Integer countById(UUID participantId);
+    boolean existsByIdNumberAndEventId(BigInteger idNumber, UUID eventId);
+
+
 }

@@ -22,5 +22,4 @@ public interface ParticipantMapper {
 
     List<Participant> participantEntitiesToParticipants(List<ParticipantEntity> participantEntities);
 
-    ParticipantCreate participantUpdateToParticipantCreate(ParticipantUpdate participantUpdate);
 }

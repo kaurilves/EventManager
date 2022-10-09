@@ -21,12 +21,8 @@ public class ParticipantCreate implements Serializable {
     @NotNull
     private BigInteger idNumber;
 
-
     @NotNull
     private PersonType personType;
-
-    @NotNull
-    private UUID eventId;
 
     @NotNull
     private UUID paymentTypeId;

@@ -56,9 +56,8 @@ public class EventController {
 
     @Operation(summary = "delete upcoming event")
     @DeleteMapping("/{eventId}")
-    public void deleteEvent(@RequestParam UUID eventId) {
-        participantService.deleteAllParticipants(eventId);
-        eventService.deleteEvent(eventId);
+    public void deleteEvent(@RequestParam UUID eventId) throws Exception {
+         eventService.deleteEvent(eventId);
     }
 
 }

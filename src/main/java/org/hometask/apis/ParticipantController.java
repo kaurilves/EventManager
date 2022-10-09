@@ -43,8 +43,8 @@ public class ParticipantController {
 
     @Operation(summary = "update participation information")
     @PutMapping("/{participantId}")
-    public Participant updateParticipant(@RequestParam UUID participantId, @Valid @RequestBody ParticipantUpdate participantUpdate) throws Exception {
-        return participantService.updateParticipant(participantId, participantUpdate);
+    public Participant updateParticipant(@RequestParam UUID participantId, @Valid @RequestBody Event event, ParticipantUpdate participantUpdate) throws Exception {
+        return participantService.updateParticipant(participantId,event, participantUpdate);
     }
 
     @Operation(summary = "delete participation")
@@ -52,6 +52,4 @@ public class ParticipantController {
     public void deleteParticipant(@RequestParam UUID participantId) {
         participantService.deleteParticipant(participantId);
     }
-
-
 }

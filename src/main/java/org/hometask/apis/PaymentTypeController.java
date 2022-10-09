@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @Tag(name = "Payments")
@@ -19,10 +20,10 @@ public class PaymentTypeController {
     @Resource
     private PaymentTypeService paymentTypeService;
 
-    @Operation(summary = "get payment types")
+    @Operation(summary = "get payment all types")
     @GetMapping
-    public List<PaymentType> getPaymentTypes() {
-        return paymentTypeService.getPaymentTypes();
+    public List<PaymentType> getAllPaymentTypes() {
+        return paymentTypeService.getAllPaymentTypes();
     }
 
     @Operation(summary = "add new payment type")

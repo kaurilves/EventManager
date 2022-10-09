@@ -9,8 +9,6 @@ import org.hometask.repositories.EventRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -20,11 +18,12 @@ public class EventService {
 
     @Resource
     private EventRepository eventRepository;
-    @Resource
-    private ParticipantService participantService;
 
     @Resource
     private EventMapper eventMapper;
+
+    @Resource
+    private ParticipantService participantService;
 
     public Event createEvent(EventCreate eventCreate) {
         EventEntity event = eventRepository.save(eventMapper.eventCreateToEventEntity(eventCreate));
@@ -40,8 +39,6 @@ public class EventService {
         List<EventEntity> eventEntities = eventRepository.findByEventDateGreaterThan(LocalDateTime.now());
         return eventMapper.eventEntitiesToEvents(eventEntities);
     }
-
-
 
     public List<Event> findAllPastEvents() {
         List<EventEntity> eventEntities = eventRepository.findByEventDateLessThan(LocalDateTime.now());
@@ -64,8 +61,8 @@ public class EventService {
         if (eventRepository.findById(eventId).orElseThrow().getEventDate().isBefore(LocalDateTime.now())) {
             throw new Exception("Can´t delete past events");
         }
+        participantService.deleteAllParticipants(eventId);
         eventRepository.delete(eventRepository.findById(eventId).get());
+
     }
-
-
 }

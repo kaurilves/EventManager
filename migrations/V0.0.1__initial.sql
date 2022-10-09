@@ -19,19 +19,15 @@ insert into hometask.payment_types(name) values('Cash');
 insert into hometask.payment_types(name) values('Bank transfer');
 
 
-create table hometask.persons(
-    id uuid default uuid_generate_v4() primary key,
-    id_number bigint not null,
-    name varchar(255) not null,
-    person_type varchar(255) not null
-    );
 
 create table hometask.participants(
     id uuid default uuid_generate_v4() primary key,
+    name varchar(255) not null,
+    id_number bigint not null,
     event_id uuid not null references hometask.events(id),
-    person_id uuid not null references hometask.persons(id),
     payment_type uuid not null references hometask.payment_types(id),
     participants_count integer not null default 1,
-    additional_info text
+    additional_info text,
+    person_type varchar(255) not null
 );
 
