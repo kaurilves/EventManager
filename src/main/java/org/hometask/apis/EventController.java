@@ -25,14 +25,14 @@ public class EventController {
     private ParticipantService participantService;
 
     @Operation(summary = "create new event")
-    @PostMapping
+    @PostMapping("/create")
     public Event createEvent(@Valid @RequestBody EventCreate eventCreate) {
         return eventService.createEvent(eventCreate);
     }
 
     @Operation(summary = "get single event")
-    @GetMapping("/{eventId}")
-    public Event getEvent(@RequestParam UUID eventId) {
+    @GetMapping("/event/{eventId}")
+    public Event getEvent(@PathVariable UUID eventId) {
         return eventService.getEvent(eventId);
     }
 
@@ -49,14 +49,14 @@ public class EventController {
     }
 
     @Operation(summary = "update upcoming event")
-    @PutMapping("/{eventId}")
-    public Event updateEvent(@RequestParam UUID eventId, @Valid @RequestBody EventUpdate eventUpdate) throws Exception {
+    @PutMapping("/update/{eventId}")
+    public Event updateEvent(@PathVariable UUID eventId, @Valid @RequestBody EventUpdate eventUpdate) throws Exception {
         return eventService.updateEvent(eventId, eventUpdate);
     }
 
     @Operation(summary = "delete upcoming event")
-    @DeleteMapping("/{eventId}")
-    public void deleteEvent(@RequestParam UUID eventId) throws Exception {
+    @DeleteMapping("/delete/{eventId}")
+    public void deleteEvent(@PathVariable UUID eventId) throws Exception {
          eventService.deleteEvent(eventId);
     }
 

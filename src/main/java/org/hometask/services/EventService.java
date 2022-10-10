@@ -65,4 +65,6 @@ public class EventService {
         eventRepository.delete(eventRepository.findById(eventId).get());
 
     }
+
+
 }

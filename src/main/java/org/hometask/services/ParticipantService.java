@@ -36,12 +36,12 @@ public class ParticipantService {
         if (event.getEventDate().isBefore(LocalDateTime.now())) {
             throw new Exception("Can´t add participants to past event");
         } else {
-            if (participantRepository.existsByIdNumberAndEventId(participantCreate.getIdNumber(), event.getId())) {
+            if (participantRepository.existsByIdNumberAndEventId(participantCreate.getIdNumber(), event.getEventId())) {
                 throw new Exception("Person already participates this event");
             } else {
                 ParticipantEntity participantEntity = participantMapper.participantCreateToParticipantEntity(participantCreate);
                 participantEntity.setPaymentTypeEntity(paymentTypeRepository.getReferenceById(participantCreate.getPaymentTypeId()));
-                participantEntity.setEventId(event.getId());
+                participantEntity.setEventId(event.getEventId());
                 participantRepository.save(participantEntity);
                 return participantMapper.participantEntityToParticipant(participantEntity);
             }

@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @RestController
 @Tag(name = "Participants")
-@RequestMapping("/participants")
+@RequestMapping("/participant")
 public  class ParticipantController {
 
     @Resource
@@ -27,7 +27,7 @@ public  class ParticipantController {
     private EventService eventService;
 
     @Operation(summary = "add participant")
-    @PostMapping("/{eventId}/participant")
+    @PostMapping("/{eventId}")
     public Participant addParticipant(@Valid @RequestBody ParticipantCreate participantCreate, @PathVariable UUID eventId)   throws Exception {
         Event event = eventService.getEvent(eventId);
         return participantService.addParticipant(event, participantCreate);
@@ -35,14 +35,14 @@ public  class ParticipantController {
 
 
     @Operation(summary = "find all event participants")
-    @GetMapping("/{eventId}")
-    public List<Participant> findEventParticipants(@RequestParam UUID eventId) {
+    @GetMapping("/participants/{eventId}")
+    public List<Participant> findEventParticipants(@PathVariable UUID eventId) {
         return participantService.findEventParticipants(eventId);
     }
 
     @Operation(summary = "count all event participants")
     @GetMapping("/count/{eventId}")
-    public Integer countEventParticipants(@RequestParam UUID eventId) {
+    public Integer countEventParticipants(@PathVariable UUID eventId) {
         return participantService.sumEventParticipants(eventId);
     }
 
@@ -55,7 +55,7 @@ public  class ParticipantController {
 
     @Operation(summary = "delete participation")
     @DeleteMapping("/{participantId}")
-    public void deleteParticipant(@RequestParam UUID participantId) {
+    public void deleteParticipant(@PathVariable UUID participantId) {
         participantService.deleteParticipant(participantId);
     }
 }

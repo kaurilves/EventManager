@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 
 public class Event implements Serializable {
-    private UUID id;
+    private UUID eventId;
     private String name;
     private String address;
     private LocalDateTime eventDate;
